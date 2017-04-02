@@ -2,7 +2,7 @@
 ---
 网站介绍：提供全唐诗搜索查阅服务  
 主页展示：  
-![主页](https://github.com/YanqiangWang/TangPoetry/tree/0.1-JSP-Servlet-JDBC/WebRoot/images)
+![主页](https://github.com/YanqiangWang/TangPoetry/blob/0.1-JSP-Servlet-JDBC/WebRoot/images/poetry-page.png)
 ---
 版本更新：  
 * 0.1: [JSP + Servlet + JDBC](https://github.com/YanqiangWang/TangPoetry/tree/0.1-JSP-Servlet-JDBC)
