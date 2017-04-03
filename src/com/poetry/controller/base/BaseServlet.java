@@ -1,22 +1,23 @@
-package com.poetry.action.base;
+package com.poetry.controller.base;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.opensymphony.xwork2.ActionSupport;
+import javax.servlet.http.HttpServlet;
+
 import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.entity.Page;
 import com.poetry.entity.Poet;
 
 /**
- * 自定义Action基类
+ * 自定义Servlet基类
  * 
  * @author Yanqiang
- * @date Apr 3, 2017 2:39:36 AM
+ * @date Apr 3, 2017 1:40:01 AM
  * @Description
  */
-public class BaseAction extends ActionSupport {
+public class BaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**

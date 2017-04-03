@@ -1,30 +1,35 @@
-package com.poetry.action;
+package com.poetry.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts2.interceptor.ServletRequestAware;
-
-import com.poetry.action.base.BaseAction;
 import com.poetry.config.Constants;
+import com.poetry.controller.base.BaseServlet;
 import com.poetry.entity.Page;
 import com.poetry.entity.Poet;
 
 /**
- * 诗题分页按钮处理
+ * 诗题分页按钮处理Servlet
  * 
  * @author Yanqiang
  * @date Apr 3, 2017 1:39:26 AM
  * @Description 对诗题分页按钮点击后的session属性处理
  */
-public class PoetryPageAction extends BaseAction implements ServletRequestAware {
+public class PoetryPageServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-	private HttpServletRequest req;
 
 	@Override
-	public String execute() throws Exception {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		this.doPost(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession();
 		// 获取当前诗题列表页码
 		int currPoetryPage = Integer.parseInt(req.getParameter("currPoetryPage"));
@@ -57,11 +62,7 @@ public class PoetryPageAction extends BaseAction implements ServletRequestAware 
 		session.setAttribute("poetryList", poetryList);
 		// 选中ID
 		session.setAttribute("poetryItemId", poetryItemId);
-		return SUCCESS;
-	}
 
-	@Override
-	public void setServletRequest(HttpServletRequest req) {
-		this.req = req;
+		req.getRequestDispatcher("PaginationServlet").forward(req, resp);
 	}
 }

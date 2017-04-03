@@ -4,15 +4,92 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	id="WebApp_ID" version="3.1">
 	<display-name>TangPoetry</display-name>
-	<welcome-file-list>
-		<welcome-file>init.jsp</welcome-file>
-	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>PaginationServlet</servlet-name>
+		<servlet-class>com.poetry.controller.PaginationServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PaginationServlet</servlet-name>
+		<url-pattern>/PaginationServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>InitServlet</servlet-name>
+		<servlet-class>com.poetry.controller.InitServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>InitServlet</servlet-name>
+		<url-pattern>/InitServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PoetListServlet</servlet-name>
+		<servlet-class>com.poetry.controller.PoetListServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PoetListServlet</servlet-name>
+		<url-pattern>/PoetListServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PoetryListServlet</servlet-name>
+		<servlet-class>com.poetry.controller.PoetryListServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PoetryListServlet</servlet-name>
+		<url-pattern>/PoetryListServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>SearchServlet</servlet-name>
+		<servlet-class>com.poetry.controller.SearchServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>SearchServlet</servlet-name>
+		<url-pattern>/SearchServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PoetPageServlet</servlet-name>
+		<servlet-class>com.poetry.controller.PoetPageServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PoetPageServlet</servlet-name>
+		<url-pattern>/PoetPageServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>PoetryPageServlet</servlet-name>
+		<servlet-class>com.poetry.controller.PoetryPageServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PoetryPageServlet</servlet-name>
+		<url-pattern>/PoetryPageServlet</url-pattern>
+	</servlet-mapping>
+
 	<filter>
-		<filter-name>struts2</filter-name>
-		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>com.poetry.filter.EncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
 	</filter>
+
 	<filter-mapping>
-		<filter-name>struts2</filter-name>
+		<filter-name>EncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<welcome-file-list>
+		<welcome-file>InitServlet</welcome-file>
+	</welcome-file-list>
 </web-app>

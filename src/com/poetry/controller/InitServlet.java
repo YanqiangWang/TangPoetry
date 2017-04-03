@@ -1,32 +1,37 @@
-package com.poetry.action;
+package com.poetry.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts2.interceptor.ServletRequestAware;
-
-import com.poetry.action.base.BaseAction;
 import com.poetry.config.Constants;
+import com.poetry.controller.base.BaseServlet;
 import com.poetry.dao.PoetDao;
 import com.poetry.dao.PoetryDao;
 import com.poetry.entity.Page;
 import com.poetry.entity.Poet;
 
 /**
- * 初始化Action
+ * 初始化Servlet
  * 
  * @author Yanqiang
  * @date Apr 3, 2017 1:36:29 AM
  * @Description 初始化网站所需参数
  */
-public class InitiateAction extends BaseAction implements ServletRequestAware {
+public class InitServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-	private HttpServletRequest req;
 
 	@Override
-	public String execute() {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		this.doPost(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 当前诗人列表页码
 		int currPoetPage = 1;
 		Page poetPage = new Page(currPoetPage, Constants.MAX_PAGE_ITEMS);
@@ -74,11 +79,7 @@ public class InitiateAction extends BaseAction implements ServletRequestAware {
 		session.setAttribute("method", "default");
 		// 输入搜索内容
 		session.setAttribute("input", "");
-		return SUCCESS;
-	}
 
-	@Override
-	public void setServletRequest(HttpServletRequest req) {
-		this.req = req;
+		req.getRequestDispatcher("PaginationServlet").forward(req, resp);
 	}
 }
