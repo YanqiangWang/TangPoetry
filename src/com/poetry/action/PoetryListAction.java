@@ -1,38 +1,30 @@
-package com.poetry.controller;
+package com.poetry.action;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.poetry.controller.base.BaseServlet;
+import org.apache.struts2.interceptor.ServletRequestAware;
+
+import com.poetry.action.base.BaseAction;
 
 /**
- * 选中诗题后处理Servlet
+ * 选中诗题后处理
+ * 
  * @author Yanqiang
  * @date Apr 3, 2017 1:39:12 AM
  * @Description 选中诗题后修改相关属性
  */
-public class PoetryListServlet extends BaseServlet {
+public class PoetryListAction extends BaseAction implements ServletRequestAware {
 	private static final long serialVersionUID = 1L;
+	private HttpServletRequest req;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		this.doPost(req, resp);
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-
+	public String execute() throws Exception {
 		HttpSession session = req.getSession();
 		// 获取诗题列表
-		List<String> poetryList = (List<String>) session
-				.getAttribute("poetryList");
+		List<String> poetryList = (List<String>) session.getAttribute("poetryList");
 
 		// 获取选中的诗题ID
 		String poetryItemIdStr = (String) req.getParameter("poetryItemId");
@@ -45,7 +37,11 @@ public class PoetryListServlet extends BaseServlet {
 		session.setAttribute("poetryName", poetryName);
 		// 选中诗题ID
 		session.setAttribute("poetryItemId", poetryItemId);
+		return SUCCESS;
+	}
 
-		req.getRequestDispatcher("PaginationServlet").forward(req, resp);
+	@Override
+	public void setServletRequest(HttpServletRequest req) {
+		this.req = req;
 	}
 }
