@@ -1,35 +1,30 @@
-package com.poetry.controller;
+package com.poetry.action;
 
-import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.interceptor.ServletRequestAware;
+
+import com.poetry.action.base.BaseAction;
 import com.poetry.config.Constants;
-import com.poetry.controller.base.BaseServlet;
 import com.poetry.entity.Page;
 import com.poetry.entity.Poet;
 
 /**
- * 选中诗题后处理Servlet
+ * 选中诗题
  * 
  * @author Yanqiang
  * @date Apr 3, 2017 1:38:29 AM
  * @Description 选中诗题后修改相关属性
  */
-public class PoetListServlet extends BaseServlet {
+public class PoetListAction extends BaseAction implements ServletRequestAware {
 	private static final long serialVersionUID = 1L;
+	private HttpServletRequest req;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		this.doPost(req, resp);
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public String execute() throws Exception {
 		// 读取session属性值
 		HttpSession session = req.getSession();
 
@@ -75,6 +70,11 @@ public class PoetListServlet extends BaseServlet {
 		session.setAttribute("poetItemId", poetItemId);
 		session.setAttribute("poetryItemId", poetryItemId);
 
-		req.getRequestDispatcher("PaginationServlet").forward(req, resp);
+		return SUCCESS;
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest req) {
+		this.req = req;
 	}
 }

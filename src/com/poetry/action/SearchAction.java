@@ -1,36 +1,32 @@
-package com.poetry.controller;
+package com.poetry.action;
 
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.interceptor.ServletRequestAware;
+
+import com.poetry.action.base.BaseAction;
 import com.poetry.config.Constants;
-import com.poetry.controller.base.BaseServlet;
 import com.poetry.entity.Page;
 import com.poetry.entity.Poet;
 import com.poetry.util.StringUtil;
 
 /**
- * 搜索处理Servlet
+ * 搜索处理
  * 
  * @author Yanqiang
  * @date Apr 3, 2017 1:39:41 AM
  * @Description 根据搜索结果修改相关属性
  */
-public class SearchServlet extends BaseServlet {
+public class SearchAction extends BaseAction implements ServletRequestAware {
 	private static final long serialVersionUID = 1L;
+	private HttpServletRequest req;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		this.doPost(req, resp);
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public String execute() throws Exception {
 		// 获取method和input参数，并做简单处理
 		String method = getMethod(req);
 		String input = getInput(req);
@@ -78,7 +74,7 @@ public class SearchServlet extends BaseServlet {
 		session.setAttribute("poetList", poetList);
 		session.setAttribute("poetryList", poetryList);
 
-		req.getRequestDispatcher("PaginationServlet").forward(req, resp);
+		return SUCCESS;
 	}
 
 	/**
@@ -87,7 +83,7 @@ public class SearchServlet extends BaseServlet {
 	 * @param req
 	 * @return
 	 */
-	public static String getMethod(HttpServletRequest req) {
+	private String getMethod(HttpServletRequest req) {
 		String method = req.getParameter("method");
 		if (StringUtil.isEmpty(method))
 			method = "default";
@@ -99,9 +95,9 @@ public class SearchServlet extends BaseServlet {
 	 * 
 	 * @param req
 	 * @return
-	 * @throws ServletException
+	 * @throws IOException
 	 */
-	public static String getInput(HttpServletRequest req) throws IOException {
+	private String getInput(HttpServletRequest req) throws IOException {
 		String input = req.getParameter("searchText");
 		if (StringUtil.isEmpty(input)) {
 			// 避免空指针异常
@@ -114,5 +110,10 @@ public class SearchServlet extends BaseServlet {
 			 */
 		}
 		return input;
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest req) {
+		this.req = req;
 	}
 }
