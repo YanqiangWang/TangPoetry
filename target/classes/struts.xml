@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="default" namespace="/" extends="struts-default">
+		<global-results>
+			<result name="success" type="chain">Pagination</result>
+		</global-results>
+		<action name="Pagination" class="com.poetry.action.PaginationAction">
+			<result name="success">/WEB-INF/content/index.jsp</result>
+		</action>
+		<action name="*" class="com.poetry.action.{1}Action">
+		</action>
+	</package>
+</struts>
